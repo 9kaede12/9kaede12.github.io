@@ -1,7 +1,17 @@
 services:
-  app:
+  app:    # サービス名
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - ./src/:/app
+  web:    # サービス名
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 8081:80
+    depends_on:
+      - app
     volumes:
       - ./src/:/app
