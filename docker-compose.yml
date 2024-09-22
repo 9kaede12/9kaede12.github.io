@@ -29,6 +29,20 @@ services:
       TZ: 'Asia/Tokyo'
     volumes:
       - mysql-volume:/var/lib/mysql
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/react/Dockerfile
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+    command: sh -c 'cd frontend && yarn start'
+    ports:
+      - 8000:3000
+    depends_on:
+      - web
+    tty: true
   phpmyadmin:
     container_name: fullstack-phpmyadmin
     image: phpmyadmin/phpmyadmin
