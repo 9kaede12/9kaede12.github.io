@@ -15,3 +15,20 @@ services:
       - app
     volumes:
       - ./src/:/app
+  db:    # サービス名
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: chuoacjp
+      MYSQL_ROOT_PASSWORD: chuoacjp
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      
+volumes:
+  mysql-volume:
